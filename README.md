@@ -60,7 +60,8 @@ Below are the main UI sections of the project:
 
 - **Services Page** — <img width="1363" height="654" alt="service" src="https://github.com/user-attachments/assets/c3d73a64-1bad-4dd7-a0d8-faba2bf1f084" />
 
-- **User Dashboard** — <img width="1343" height="640" alt="dashbord phn" src="https://github.com/user-attachments/assets/87e433eb-98ea-4a04-9d05-4a4d4f1d96f4" />
+- **User Dashboard** — <img width="1343" height="640" alt="dashbord phn" src="https://github.com/user-attachments/assets/60a913fb-09b5-4754-8d8b-1065458dfa0d" />
+
 
 
 ---
