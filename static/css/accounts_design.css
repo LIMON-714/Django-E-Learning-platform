@@ -1,0 +1,194 @@
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+/* Login Card */
+.login-wrapper {
+    width: 420px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: 35px 45px;
+    color: #fff;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+    animation: loginFloat 4s ease-in-out infinite;
+}
+
+@keyframes loginFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Title */
+.login-title {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px #00eaff;
+    animation: loginGlow 2s infinite alternate;
+}
+
+@keyframes loginGlow {
+    from { text-shadow: 0 0 8px #00eaff; }
+    to { text-shadow: 0 0 20px #00eaff; }
+}
+
+/* Input Box */
+.login-input-box {
+    position: relative;
+    width: 100%;
+    margin: 25px 0;
+}
+
+.login-input-box input {
+    width: 100%;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    padding: 0 55px 0 20px;
+    color: #fff;
+    font-size: 15px;
+    transition: 0.3s ease;
+    outline: none;
+}
+
+.login-input-box input:focus {
+    border-color: #00eaff;
+    box-shadow: 0 0 12px #00eaff;
+}
+
+.login-input-box input::placeholder {
+    color: #f9fbfd;
+}
+
+/* Icons */
+.login-input-box i {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #00eaff;
+    transition: 0.3s ease;
+}
+
+.login-input-box input:focus + i {
+    transform: translateY(-50%) scale(1.2);
+    text-shadow: 0 0 10px #00eaff;
+}
+
+/* Remember + Forgot */
+.login-remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 20px;
+    font-size: 14.5px;
+}
+
+.login-remember-forgot a {
+    color: #00eaff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.login-remember-forgot a:hover {
+    text-shadow: 0 0 10px #00eaff;
+}
+
+/* Button */
+.login-btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 40px;
+    border: none;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(135deg, #00eaff, #0099ff);
+    color: #111;
+    box-shadow: 0 0 5px rgba(0, 217, 255, 0.4);
+    transition: 0.35s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px #fdb7f3;
+}
+
+/* Register link */
+.login-register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-register-link a {
+    color: #00eaff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.login-register-link a:hover {
+    text-shadow: 0 0 10px #00eaff;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-wrapper {
+        width: 92%;
+        padding: 28px 30px;
+    }
+    .login-title {
+        font-size: 28px;
+    }
+}
+
+.email-wrapper {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(14px);
+        border-radius: 18px;
+        padding: 40px 30px;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+        margin: 50px auto;
+        color: #fff;
+    }
+
+    .email-wrapper h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #00eaff;
+        text-shadow: 0 0 15px #00eaff;
+    }
+
+    .email-wrapper p {
+        font-size: 16px;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+
+    .activate-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 50px;
+        background: linear-gradient(135deg, #00eaff, #0099ff);
+        color: #111;
+        text-decoration: none;
+        box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+        transition: 0.3s ease;
+    }
+
+    .activate-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 25px #fdb7f3;
+    }

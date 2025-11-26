@@ -1,0 +1,112 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Payment | {{ course.title|default:"Course" }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/payment.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+
+    <!-- LEFT: Course Details -->
+    {% if course %}
+    <div class="col-lg-6 mb-4">
+      <div class="course-info p-4 shadow rounded bg-dark text-white">
+        <div class="course-image-wrap shadow-lg rounded overflow-hidden mb-4">
+          <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}"
+            class="course-main-img">
+        </div>
+        <h2 class="text-info">{{ course.title }}</h2>
+        <p>{{ course.short_description }}</p>
+        <p ><strong class="text-info">Level:</strong> {{ course.level }}</p>
+        <p><strong class="text-info">Duration:</strong> {{ course.duration }}</p>
+        <p><strong class="text-info"> After Discount Price:</strong> ${{ final_price }}</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- RIGHT: Payment Form -->
+    <div class="col-lg-6">
+      <div class="payment-card p-4 shadow rounded bg-dark text-white">
+
+        <h3 class="text-info">Complete Payment</h3>
+
+        <form method="POST" id="paymentForm">
+          {% csrf_token %}
+          <input type="hidden" name="course_name"
+            value="{{ course.title|default:'' }}">
+
+          <!-- Name -->
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control"
+              placeholder="Enter your name" required>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control"
+              placeholder="Enter your email" required>
+          </div>
+
+          <!-- Contact -->
+          <div class="mb-3">
+            <label class="form-label">Contact Number</label>
+            <input type="text" name="phone" class="form-control"
+              placeholder="Enter your contact number" required>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="mb-3">
+            <label for="paymentMethod" class="form-label">Payment Method</label>
+            <select id="paymentMethod" name="payment_method" class="form-select"
+              required>
+              <option value disabled selected>Select Payment Method</option>
+              {% for method in payment_methods %}
+              <option value="{{ method }}">{{ method }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Mobile Number -->
+          <div class="mb-3 d-none" id="mobileInputDiv">
+            <label class="form-label">Mobile Number</label>
+            <input type="text" name="mobile_number" class="form-control"
+              placeholder="Enter mobile number">
+          </div>
+
+          <!-- Card Number -->
+          <div class="mb-3 d-none" id="cardInputDiv">
+            <label class="form-label">Card Number</label>
+            <input type="text" name="card_number" class="form-control"
+              placeholder="Enter card number">
+            <label class="form-label mt-2">CVV</label>
+            <input type="text" name="cvv" class="form-control"
+              placeholder="Enter CVV">
+          </div>
+
+          <!-- PayPal Email -->
+          <div class="mb-3 d-none" id="paypalInputDiv">
+            <label class="form-label">PayPal Email</label>
+            <input type="email" name="paypal_email" class="form-control"
+              placeholder="Enter PayPal email">
+          </div>
+
+          <button type="submit"
+            class="btn btn-outline-info fw-semibold w-100">Pay Now</button>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/payment.js' %}"></script>
+{% endblock %}

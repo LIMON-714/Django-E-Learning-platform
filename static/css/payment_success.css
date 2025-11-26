@@ -1,0 +1,92 @@
+/* payment_success.css */
+
+/* Wrapper */
+.success-wrapper {
+    background: rgba(255, 255, 255, 0.05); /* semi-transparent glass effect */
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: 30px 25px; /* smaller padding for compact design */
+    max-width: 450px; /* slightly smaller than before */
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+    margin: 60px auto;
+    color: #fff;
+    transition: 0.3s ease;
+}
+.success-wrapper:hover{
+     transition: 0.3s ease;
+     box-shadow: 3px 0 5px 4px rgba(223, 143, 220, 0.25);
+}
+
+/* Heading */
+.success-wrapper h1 {
+    font-size: 26px; /* smaller for compact look */
+    margin-bottom: 18px;
+    color: #00eaff;
+    text-shadow: 0 0 12px #00eaff;
+}
+
+/* Paragraphs */
+.success-wrapper p {
+    font-size: 15px;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+/* Payment info box */
+.success-wrapper .payment-info {
+    background-color: rgba(44, 44, 44, 0.9);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    text-align: left;
+}
+
+/* Payment info text */
+.success-wrapper .payment-info p {
+    margin: 8px 0;
+}
+
+/* Button */
+.btn_class {
+    color: #00eaff; /* light cyan text */
+    border: 2px solid #00eaff;
+    border-radius: 50px;
+    font-weight: 600; /* fw-semibold */
+    padding: 8px 25px; /* px-4 & normal padding */
+    background-color: transparent;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 234, 255, 0.5);
+}
+
+.btn_class:hover {
+    transform: translateY(-2px);
+    color: #111; /* dark text on hover */
+    background: linear-gradient(135deg, #00eaff, #0099ff);
+    border-color: #00eaff;
+}
+
+/* Support note */
+.success-wrapper .support-note {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .success-wrapper {
+        width: 90%;
+        padding: 25px 20px;
+    }
+    .success-wrapper h1 {
+        font-size: 22px;
+    }
+    .btn_class {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,155 @@
+/* ------------------- Course Card Styling ------------------- */
+.course-card {
+    position: relative;
+    background-color: #222;
+    color: #eee;
+    border-radius: 11px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+
+    border: 1px solid transparent;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    background-image:
+        linear-gradient(#222, #222),
+        linear-gradient(90deg, #0DCAF0, #cb8e15, #67076f);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+}
+
+/* Hover Effect - Smooth Professional */
+.course-card:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
+}
+
+/* ------------------- Thumbnail ------------------- */
+.course-card img {
+    height: 165px;
+    width: 100%;
+    object-fit: cover;
+    transition: 0.3s ease;
+}
+
+
+
+/* ------------------- Card Body ------------------- */
+.course-card .card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px;
+}
+
+/* ------------------- Title ------------------- */
+.course-card h6 {
+    color: #eee;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+/* ------------------- Short Description ------------------- */
+.course-card p {
+    color: #ccc;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    margin-bottom: 6px;
+}
+
+/* ------------------- Extra Info List ------------------- */
+.course-card ul {
+    padding-left: 0;
+    margin-bottom: 6px;
+}
+
+.course-card ul li {
+    color: #eee;
+    font-size: 0.78rem;
+    margin-bottom: 3px;
+}
+
+/* ------------------- Price Section ------------------- */
+.price-section {
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.original-price {
+    color: #eee;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.discount-price {
+    margin-left: 90px;
+    color: #FFC107;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-decoration: line-through;
+}
+
+/* ------------------- Button ------------------- */
+.course-card .btn {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    margin-top: 4px;
+    transition: 0.3s ease;
+}
+
+.course-card .btn:hover {
+    background-color: #0DCAF0;
+    color: #000;
+}
+
+/* ------------------- Responsive Grid ------------------- */
+.col-md-4 {
+    max-width: 320px;
+}
+
+/* ------------------- Medium Screen Fix (Height Equal) ------------------- */
+@media (max-width: 992px) and (min-width: 768px) {
+    .col-md-4 {
+        width: 60%;
+    }
+
+    .course-card {
+        height: auto !important;    /* Prevent extra long height */
+    }
+
+    .course-card .card-body {
+        flex-grow: 1;               /* Keep body balanced */
+    }
+
+    .course-card img {
+        height: 150px;
+    }
+}
+
+/* ------------------- Mobile Responsive ------------------- */
+@media (max-width: 768px) {
+    .col-md-4 {
+        max-width: 90%;
+    }
+
+    .course-card img {
+        height: 150px;
+    }
+
+    .course-card h6 {
+        font-size: 0.95rem;
+    }
+
+    .course-card p {
+        font-size: 0.78rem;
+    }
+
+    .course-card ul li {
+        font-size: 0.75rem;
+    }
+}

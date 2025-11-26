@@ -1,0 +1,26 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/payment_success.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="success-wrapper">
+    <h1 class="text-info">Payment Successful!</h1>
+    <p>Hi <strong>{{ payment.name }}</strong>,</p>
+    <p>Thank you for your payment at <strong>InnoCLave IT Solution</strong>.</p>
+
+    <div class="payment-info">
+        <p><strong class="text-info">Course Name: </strong> {{ payment.course_name }}</p>
+        <p><strong class="text-info">Amount Paid: </strong> ${{ payment.amount }}</p>
+        <p><strong class="text-info">Payment Method: </strong> {{ payment.payment_method }}</p>
+    </div>
+
+    <a href="{% url 'course' %}" class="btn_class ">
+        Go to More Courses
+    </a>
+
+    <p class="support-note">If you did not make this payment, please contact support.</p>
+</div>
+{% endblock content %}

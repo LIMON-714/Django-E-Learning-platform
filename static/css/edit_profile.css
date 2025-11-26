@@ -1,0 +1,161 @@
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 15px;
+    width: 250px;
+    background: #1c1c1c;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-sidebar .profile-card {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-sidebar .profile-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00eaff;
+    margin-bottom: 10px;
+}
+
+
+
+/* Sidebar nav */
+.dashboard-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dashboard-nav li {
+    margin-bottom: 10px;
+}
+
+.dashboard-nav a {
+    display: block;
+    color: #d3d3d3;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.dashboard-nav a.active,
+.dashboard-nav a:hover {
+    background: #00eaff;
+    color: #1e2124;
+}
+
+/* Main Content */
+.dashboard-main {
+    flex: 1;
+    padding: 40px;
+}
+.dashboard-main>h1{
+    text-align: center;
+    padding-bottom: 30px;
+    
+}
+
+
+/* Simple Form */
+.profile-form-simple {
+    max-width: 700px;
+    margin: auto;
+}
+
+.form-group-inline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group-inline label {
+    width: 120px;
+    font-weight: 500;
+    color: #ccc;
+}
+
+.form-group-inline input,
+.form-group-inline textarea {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #3a3f44;
+    background: #1e2124;
+    color: #fff;
+    outline: none;
+}
+
+.form-group-inline textarea {
+    height: 80px;
+    resize: none;
+}
+
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.save_button{
+    margin-left: 120px;
+}
+
+/* Cancel Link */
+.btn-secondary-simple {
+    padding: 12px 25px;
+    background: #343a40;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.btn-secondary-simple:hover {
+    background: #3f464d;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 15px;
+    }
+
+    .form-group-inline {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-group-inline label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

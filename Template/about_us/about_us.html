@@ -1,0 +1,90 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+ <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock extra_css %}
+
+{% block title %}
+About Us
+{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- About Heading -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">About <span class="text-info">InnoCLave IT Solution</span></h1>
+        <hr class="border-secondary mb-4">
+        <p class="text-secondary fs-5 mt-3">
+            InnoCLave IT Solution is committed to providing high-quality technology solutions and educational
+            platforms that empower individuals, professionals, and businesses to grow and succeed in an increasingly
+            digital world. We believe in innovation, excellence, and lifelong learning.
+        </p>
+    </div>
+
+    <!-- Mission & Vision -->
+    <div class="row mb-5">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="p-4 bg-dark text-light rounded shadow-sm h-100">
+                <h3 class="fw-semibold mb-3">Our Mission</h3>
+                <p>
+                    Our mission at InnoCLave IT Solution is to deliver comprehensive IT education, cutting-edge
+                    software solutions, and digital services that enable learners and professionals to develop
+                    valuable skills, advance their careers, and achieve measurable success.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 bg-dark text-light rounded shadow-sm h-100">
+                <h3 class="fw-semibold mb-3">Our Vision</h3>
+                <p>
+                    Our vision is to become a globally recognized IT education and solutions provider, fostering
+                    innovation, creativity, and professional excellence. We envision a world where every individual
+                    and organization can leverage technology effectively to achieve their goals and make an impact.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Values Section -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Our Core <span class="text-info">Values</span></h2>
+        <p class="text-secondary fs-6">
+            At InnoCLave IT Solution, we uphold integrity, commitment, innovation, and customer-centricity as our
+            guiding principles. These values ensure that every course, service, and solution we provide is reliable
+            and geared towards enabling success for our clients and learners.
+        </p>
+    </div>
+
+    <!-- Team Section -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Meet Our <span class="text-info">Team</span></h2>
+        <p class="text-secondary fs-6">The people who drive our vision and excellence</p>
+    </div>
+
+    <div class="row text-center">
+        {% if members %}
+            {% for member in members %}
+                <div class="col-md-4 mb-4">
+                    <div class="card team-card">
+                        <div class="img-wrap">
+                            <img src="{{ member.photo.url }}" alt="{{ member.name }}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ member.name| title }}</h5>
+                            <p class="card-text">{{ member.designation }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <p class="text-muted">No team members added yet.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}
+

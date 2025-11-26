@@ -1,0 +1,131 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock extra_css %}
+
+{% block title %}Search Results{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Page Title -->
+    <h2 class="text-light fw-bold text-center">
+        Search Results for "<span class="text-info">{{ query }}</span>"
+    </h2>
+    <hr class="border-secondary mb-4">
+
+    <!-- ============================= -->
+    <!-- Courses Section -->
+    <!-- ============================= -->
+    {% if courses %}
+    <h3 class="text-light mb-4 text-center">Courses</h3>
+
+    <div class="row justify-content-center">
+        {% for course in courses %}
+        <div class="col-md-4 mb-4 d-flex align-items-stretch">
+            <div class="card course-card w-100">
+
+                <!-- Course Thumbnail -->
+                <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
+
+                <div class="card-body d-flex flex-column">
+
+                    <!-- Course Title -->
+                    <h6 class="text-info">{{ course.title }}</h6>
+
+                    <!-- Short Description -->
+                    <p class="small mb-2">{{ course.short_description|truncatechars:100 }}</p>
+
+                    <!-- Extra Info -->
+                    <ul class="list-unstyled mb-2 list-dis_name">
+                        <li><strong>Total Class:</strong> {{ course.total_lessons }}</li>
+                        <li><strong>Level:</strong> {{ course.level }}</li>
+                        <li><strong>Rating:</strong> ⭐ {{ course.rating }}</li>
+                    </ul>
+
+                    <!-- Price Section -->
+                    <div class="price-section mt-auto mb-3">
+                        {% if course.discount_price %}
+                            <span class="original-price text-info">${{ course.price }}</span>
+                            <span class="discount-price"><del>${{ course.discount_price }}</del> off</span>
+                        {% else %}
+                            <span class="original-price">${{ course.price }}</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- View Details Button -->
+                    <a href="{% url 'course_detail' course.slug %}" class="btn btn-outline-info fw-semibold mt-auto">
+                        View Details
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ============================= -->
+    <!-- Blogs Section -->
+    <!-- ============================= -->
+    {% if blogs %}
+    <h3 class="text-light mb-4 text-center">Blogs</h3>
+
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="blog-card">
+
+                <!-- Blog Image -->
+                {% if blog.photo %}
+                <img src="{{ blog.photo.url }}" alt="{{ blog.title }}" class="blog-image">
+                {% else %}
+                <img src="{% static 'images/default_blog.jpg' %}" alt="No Image" class="blog-image">
+                {% endif %}
+
+                <div class="blog-content">
+
+                    <!-- Blog Meta -->
+                    <div class="blog-meta small text-muted">
+                        {{ blog.category.name|default:"Uncategorized"|title }} |
+                        {{ blog.created_at|date:"M d, Y"|default:"Unknown Date" }} |
+                        by 
+                        {% if blog.author.first_name %}
+                            {{ blog.author.first_name|title }}
+                            {% if blog.author.last_name %}
+                                {{ blog.author.last_name|title }}
+                            {% endif %}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </div>
+
+                    <!-- Blog Title -->
+                    <h5 class="mt-2">{{ blog.title|title }}</h5>
+
+                    <!-- Blog Excerpt -->
+                    <p class="blog-excerpt">{{ blog.content|truncatewords:25 }}</p>
+
+                    <!-- Read More Button -->
+                    <a href="{% url 'blog_detail' blog.id %}" class="see-more-btn">
+                        See More
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ============================= -->
+    <!-- No Results -->
+    <!-- ============================= -->
+    {% if not courses and not blogs %}
+    <p class="text-light text-center mt-5">No results found for "<strong>{{ query }}</strong>".</p>
+    {% endif %}
+
+</div>
+{% endblock content %}

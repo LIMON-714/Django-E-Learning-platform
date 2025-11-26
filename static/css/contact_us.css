@@ -1,0 +1,86 @@
+
+/* Text Input (Name, Email) */
+.inputcolor {
+    width: 100%;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.06); /* semi-transparent dark */
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    padding: 0 20px;
+    color: #fff; /* text white */
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.inputcolor::placeholder {
+    color: #f9fbfd; /* light placeholder */
+}
+
+/* Maintain background and text color on focus */
+.inputcolor:focus {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    border-color: #00eaff; /* neon cyan border */
+    box-shadow: 0 0 12px #00eaff; /* neon glow */
+}
+
+/* Textarea (Message) */
+.messagecolor {
+    width: 100%;
+    min-height: 140px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 15px 20px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s ease;
+    resize: none; /* prevent resizing */
+}
+
+.messagecolor::placeholder {
+    color: #f9fbfd;
+}
+
+.messagecolor:focus {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    border-color: #00eaff;
+    box-shadow: 0 0 12px #00eaff;
+}
+
+#success-message {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #0DCAF0;
+    background: #212529; /* inside background color */
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto 10px;
+}
+
+#success-message::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px; /* border thickness */
+    border-radius: inherit;
+    background: linear-gradient(90deg, #0DCAF0, #cb8e15, #67076f);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+}
+
+#success-message.hide {
+    opacity: 0;
+    transform: translateY(20px);
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}

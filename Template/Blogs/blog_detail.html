@@ -1,0 +1,142 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock extra_link %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blogs_detail.css' %}">
+{% endblock extra_css %}
+
+{% block title %}
+{{ blog.title }}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="blog-detail-wrapper row">
+
+        <!-- Left Column: Image + More Blogs -->
+        <div class="col-md-5 left-sidebar">
+
+            {% if blog.photo %}
+            <div class="blog-image mb-4">
+                <img src="{{ blog.photo.url }}" alt="{{ blog.title }}">
+            </div>
+            {% endif %}
+
+            <div class="more-blogs">
+                <h2 class="heading_h3">More <span class="text-info">Blogs</span></h2>
+                <ul>
+                    {% for item in more_blogs %}
+                    <li class="d-flex align-items-start mb-3">
+                        {% if item.photo %}
+                        <a href="{% url 'blog_detail' item.id %}" class="more-blog-img">
+                            <img src="{{ item.photo.url }}" alt="{{ item.title }}">
+                        </a>
+                        {% endif %}
+                        <div class="more-blog-text">
+                            <a href="{% url 'blog_detail' item.id %}" class="a_title">{{ item.title|title }}</a>
+                            <div class="meta">
+                                {{ item.category.name|default:"Uncategorized"|title }} |
+                                {{ item.created_at|date:"M d, Y"|default:"Unknown Date" }} |
+                                by {% if item.author.first_name %} {{ item.author.first_name|title }} {% if item.author.last_name %} {{ item.author.last_name|title }} {% endif %} {% else %} {{ item.author.username }} {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <p>No more blogs available.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Blog Content -->
+        <div class="col-md-6 blog-text text_area_blogs">
+
+            <h1>{{ blog.title|title }}</h1>
+            <div class="blog-meta">
+                {{ blog.category.name|default:"Uncategorized"|title }} |
+                {{ blog.created_at|date:"M d, Y"|default:"Unknown Date" }} |
+                by {% if blog.author.first_name %} {{ blog.author.first_name|title }} {% if blog.author.last_name %} {{ blog.author.last_name|title }} {% endif %} {% else %} {{ blog.author.username }} {% endif %}
+            </div>
+
+            <div class="blog-content">
+                {{ blog.content|linebreaks }}
+            </div>
+
+            <a href="{% url 'blogs' %}" class="btn btn-outline-info fw-semibold mt-3">Back to Blogs</a>
+
+            <!-- Actions -->
+            <div class="blog-actions mt-3">
+            <!-- Like Button -->
+            <div class="action-item like-btn" data-id="{{ blog.id }}" style="cursor:pointer;">
+                <i class="fa-regular fa-thumbs-up fa-lg"></i>
+                <span>Like (<span id="like-count">{{ blog.likes.count }}</span>)</span>
+            </div>
+
+            <!-- Share Button -->
+            <div class="action-item share-btn" data-id="{{ blog.id }}" style="cursor:pointer;">
+                <i class="fa-solid fa-share-nodes fa-lg text-info"></i>
+                <span>Share (<span id="share-count">{{ blog.share_count }}</span>)</span>
+            </div>
+        </div>
+
+
+
+
+
+            <!-- Comment Form -->
+            {% if user.is_authenticated %}
+            <div class="comment-form mt-4">
+                <form method="POST" action="{% url 'add_comment' blog.id %}">
+                    {% csrf_token %}
+                    <textarea name="comment" rows="3" placeholder="Write your comment..." required></textarea>
+                    <button type="submit" class="btn btn-outline-info">Submit</button>
+                </form>
+            </div>
+            {% else %}
+            <p>Please <a href="{% url 'login' %}">login</a> to comment.</p>
+            {% endif %}
+
+            <!-- Comments -->
+            <div class="all-comments mt-4">
+    <h5 class="comment-count">Comments ({{ comments.count }})</h5>
+
+    <div class="comments-list">
+        {% for comment in comments %}
+        <div class="single-comment">
+            <div class="comment-body">
+                <div class="meta-row">
+                    <span class="author">{{ comment.author.get_full_name|default:comment.author.username }}</span>
+                    |
+                    <time class="time">{{ comment.created_at|date:"M d, Y H:i" }}</time>
+                </div>
+
+                <!-- use details so long comments can be collapsed -->
+                <details class="comment-text" {% if comment.comment_text|length < 300 %} open {% endif %}>
+                    <summary class="sr-only">Read comment</summary>
+                    <div class="comment-content">
+                        {{ comment.comment_text|linebreaks }}
+                    </div>
+                </details>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-comments">No comments yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/blogs_details.js' %}"></script>
+{% endblock extra_js %}

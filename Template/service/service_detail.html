@@ -1,0 +1,131 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/service_detail.css' %}">
+{% endblock extra_css %}
+
+{% block title %}
+{{ service.name|title }}
+{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+
+  <!-- Service Header -->
+  <div class="row align-items-center mb-5">
+    <!-- Service Image -->
+    <div class="col-lg-6 mb-4 mb-lg-0">
+      <div class="service-image-wrap shadow-lg">
+        <img src="{{ service.photo.url }}" alt="{{ service.name }}"
+          class="service-main-img">
+      </div>
+    </div>
+
+    <!-- Service Info -->
+    <div class="col-lg-6">
+      <h1 class="text-light fw-bold">{{ service.name|title }}</h1>
+      <p class="text-secondary mt-3">{{ service.description }}</p>
+
+      <!-- Service Features -->
+      {% if features %}
+      <h5 class="text-info mt-4">Key Features</h5>
+      <ul class="service-features mt-2">
+        {% for feature in features %}
+        <li>{{ feature.feature }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <!-- Request Service Button -->
+      <button class="btn btn-info mt-4" id="requestServiceBtn">Request This
+        Service</button>
+    </div>
+  </div>
+
+  <!-- Service Details Section -->
+  <div class="additional-details mt-2 p-4 bg-dark rounded shadow-sm">
+    <h3 class="text-info mb-3"> <span class="text-light">Service </span>Details</h3>
+    <div class="text-light">
+      <p><strong>Name:</strong> {{ service.name|title }}</p>
+      <p><strong>Description:</strong> {{ service.description }}</p>
+      {% if features %}
+      <p><strong>Features:</strong></p>
+      <ul class="service-features">
+        {% for feature in features %}
+        <li>{{ feature.feature }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Client Reviews Section (Full Width, Below Service Details) -->
+    <div class="reviews-section mt-5">
+
+        <div class="reviews-top">
+            <h3 class="text-info mb-0"> <span class="text-light">Client</span> Reviews</h3>
+
+            <div class="review-nav">
+                <button id="review-prev" class="review-btn">&lt;</button>
+                <button id="review-next" class="review-btn m-2">&gt;</button>
+            </div>
+        </div>
+
+        <div class="review-display">
+            {% if reviews %}
+                {% for review in reviews %}
+                <div class="single-review">
+                    <strong class="review-name">{{ review.name }}</strong>
+                    <p class="review-text">{{ review.comment }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-secondary">No reviews yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+<!-- Service Request Modal -->
+<div class="service-modal" id="serviceModal">
+  <div class="service-modal-backdrop"></div>
+  <div class="service-modal-dialog">
+    <button class="modal-close" id="closeModal">&times;</button>
+    <h4 class="text-info mb-3">Request {{ service.name }}</h4>
+    <form method="POST" action="{% url 'service_detail' service.pk %}"
+      class="service-form">
+      {% csrf_token %}
+      <input type="hidden" name="service_id" value="{{ service.id }}">
+      <div class="form-row">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="Your full name"
+          required>
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"
+          placeholder="Your email address" required>
+      </div>
+      <div class="form-row">
+        <label for="phone">Phone</label>
+        <input type="text" name="phone" id="phone"
+          placeholder="Your contact number" required>
+      </div>
+      <div class="form-row">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="4"
+          placeholder="Additional information or requests"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-info">Submit Request</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/service_detail.js' %}"></script>
+{% endblock extra_js %}

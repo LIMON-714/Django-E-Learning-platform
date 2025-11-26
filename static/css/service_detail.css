@@ -1,0 +1,280 @@
+/* ====== Service Detail Page ====== */
+
+/* Image */
+.service-image-wrap {
+    margin-top: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 100%;
+    max-height: 400px;
+}
+
+.service-main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ================================
+   CLIENT REVIEW SECTION (40% width)
+   ================================ */
+   
+.reviews-section {
+    width: 40%;
+    margin-top: 50px;
+    margin-left: 25px;
+}
+
+/* Title + Arrows */
+.reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-arrows {
+    display: flex;
+    gap: 10px;
+}
+
+.review-btn {
+    background: transparent;
+    border: 1px solid #0dcaf0;
+    color: #0dcaf0;
+    font-size: 16px;
+    margin-top: 14px;
+    margin-bottom: 19px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.review-btn:hover {
+    background: #0dcaf0;
+    color: #fff;
+}
+
+.review-display{
+    padding-left: -15px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+    margin-left: -5px;
+    border-radius: 15px;
+}
+
+
+/* Review Box */
+.review-box {
+    margin-top: 20px;
+    min-height: 130px;
+    position: relative;
+}
+
+/* Each Review */
+.single-review {
+    display: none;
+    animation: fadeSlide 0.3s ease;
+}
+
+.single-review.active {
+    display: block;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.review-name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.review-text {
+    color: #d7d7d7;
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    max-height: 150px;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+/* Scrollbar */
+.review-text::-webkit-scrollbar {
+    width: 4px;
+}
+.review-text::-webkit-scrollbar-thumb {
+    background: #0dcaf0;
+    border-radius: 10px;
+}
+
+/* ================================
+   SERVICE FEATURES
+   ================================ */
+.service-features {
+    list-style: none;
+    padding-left: 0;
+}
+.service-features li::before {
+    content: "✅ ";
+}
+
+/* ================================
+   BUTTONS
+   ================================ */
+.btn-info {
+    background: #0dcaf0;
+    color: #000;
+    border: none;
+}
+.btn-info:hover {
+    background: #0ab8e0;
+    color: #fff;
+}
+
+.btn-outline-info {
+    border-color: #0dcaf0;
+    color: #0dcaf0;
+}
+.btn-outline-info:hover {
+    background: #0dcaf0;
+    color: #000;
+}
+
+/* ================================
+   MODAL
+   ================================ */
+.service-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+    justify-content: center;
+    align-items: center;
+}
+.service-modal.show {
+    display: flex;
+}
+.service-modal-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+}
+
+.service-modal-dialog {
+    position: relative;
+    background: #111;
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 500px;
+    width: 90%;
+    z-index: 2;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 35px;
+    color: #0dcaf0;
+    cursor: pointer;
+}
+
+/* ================================
+   FORM
+   ================================ */
+.service-form {
+    max-width: 600px; /* prevent form from stretching too wide */
+    margin: 0 auto;   /* center the form */
+    padding: 20px;
+}
+
+.service-form .form-row {
+    display: flex;
+    flex-direction: column; /* stack label and input vertically */
+    margin-bottom: 15px;
+}
+
+.service-form label {
+    color: #ccc;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.service-form input,
+.service-form textarea {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #0dcaf0;
+    background: #1a1a1a;
+    color: #fff;
+    width: 100%; /* make input fill container */
+    box-sizing: border-box;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap; /* allows button to wrap on small screens */
+}
+
+.service-form button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #0dcaf0;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.service-form button:hover {
+    background-color: #0ab8d0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+    .form-actions {
+        justify-content: center; /* center button on very small screens */
+    }
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+@media (max-width: 575px) {
+
+    .reviews-section,
+    .review-box,
+    .review-display,
+    .review-box .single-review {
+        margin: 0 !important;
+        padding: 15px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+}
+
+@media (max-width: 991px){
+    .reviews-section {
+        width: 100%;
+    }
+}

@@ -1,0 +1,73 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}My Courses | {{ user.username }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/user_coueses.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="profile-card">
+                <div class="profile-image">
+                    {% if user_profile.profile_image %}
+                        <img src="{{ user_profile.profile_image.url }}" alt="{{ user.username }}">
+                    {% else %}
+                        <img src="{% static 'images/default_avatar.png' %}" alt="Default Avatar">
+                    {% endif %}
+                </div>
+                <h3>{{ user.get_full_name }}</h3>
+                <p>{{ user.email }}</p>
+            </div>
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="{% url 'user_profile:dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'user_profile:edit_profile' %}">Edit Profile</a></li>
+                    <li><a href="{% url 'user_profile:user_courses' %}" class="active">My Courses</a></li>
+                    <li><a href="{% url 'user_profile:user_blogs' %}">My Blogs</a></li>
+                    <li><a href="{% url 'singout' %}">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h1 class="heading">My <span class="text-info">Courses</span></h1>
+                <hr class="hr">
+            <div class="dashboard-cards">
+                {% for item in courses %}
+                <div class="dashboard-card">
+                    <img src="{{ item.course.thumbnail.url }}" alt="{{ item.course.title }}">
+                    <h4>{{ item.course.title }}</h4>
+                    <p>{{ item.course.duration }} | {{ item.course.level }}</p>
+
+                    <a href="{% url 'course_detail' item.course.slug %}" class="btn btn-info">
+                        View Course
+                    </a>
+
+                    <!-- Cancel button: deletes the course -->
+                    <form method="POST" action="{% url 'user_profile:cancel_course' item.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">
+                            Cancel
+                        </button>
+                    </form>
+                </div>
+                {% empty %}
+                <p>You have not purchased any courses yet.</p>
+                {% endfor %}
+            </div>
+
+        </main>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/user_dashboard.js' %}"></script>
+{% endblock extra_js %}

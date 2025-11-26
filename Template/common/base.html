@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+            rel="stylesheet">
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+            crossorigin="anonymous">
+        {% block extra_link %}
+
+        {% endblock extra_link %}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        {% block extra_css %}
+
+        {% endblock extra_css %}
+
+        <title>
+            {% block title %}
+
+            {% endblock title %}
+        </title>
+    </head>
+    <body class="bg-dark text-light">
+        {% block navbar %}
+        <div class="container"> <br>
+            <nav
+                class="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+                <div class="container-fluid text-light">
+                    <a class="navbar-brand text-light" style="cursor: pointer;">InnoCLave IT</a>
+                    <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse"
+                        id="navbarSupportedContent">
+
+                        <!-- LEFT MENU -->
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active text-light"
+                                    aria-current="page"
+                                    href="{% url 'home' %}">Home</a>
+                            </li>
+
+                            {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link text-light"
+                                    href="{% url 'blogs' %}">Blogs</a></li>
+                            <li class="nav-item"><a class="nav-link text-light"
+                                    href="{% url 'service' %}">Services</a></li>
+                            <li
+                                class="nav-item dropdown d-flex align-items-center">
+                                <!-- Course main link -->
+                                <a class="nav-link text-light"
+                                    href="{% url 'course' %}">Course</a>
+
+                                <!-- Dropdown arrow -->
+                                <a
+                                    class="nav-link dropdown-toggle text-light p-0"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    {% for cat in nav_categories %}
+                                    <li class="dropdown-submenu">
+                                        <!-- Link to category courses page -->
+                                        <a class="dropdown-item"
+                                            href="{% url 'course_by_category' cat.slug %}">
+                                            {{ cat.name }}
+                                        </a>
+
+                                        {% if cat.courses.all %}
+                                        <ul class="dropdown-menu">
+                                            {% for course in cat.courses.all %}
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="{% url 'course_detail' course.slug %}">
+                                                    {{ course.title }}
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+
+                            </li>
+
+                            <li class="nav-item"><a
+                                    class="nav-link text-light ms-2"
+                                    href="{% url 'about' %}">About Us</a></li>
+                            {% else %}
+                            <li class="nav-item"><a class="nav-link text-light"
+                                    href="{% url 'about' %}">About Us</a></li>
+                            <li class="nav-item"><a class="nav-link text-light"
+                                    href="{% url 'contact' %}">Contact
+                                    Us</a></li>
+                            {% endif %}
+                        </ul>
+
+                        <!-- SEARCH (login thakle dekhbe) -->
+                        {% if user.is_authenticated %}
+                        <form class="d-flex me-3" role="search" method="GET"
+                            action="{% url 'search' %}">
+                            <input class="form-control me-2" type="search"
+                                name="q"
+                                placeholder="Search Courses & Blogs"
+                                aria-label="Search" required>
+                            <button class="btn btn-outline-info"
+                                type="submit">Search</button>
+                        </form>
+                        {% endif %}
+
+                        <!-- RIGHT MENU -->
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light"
+                                    href="#" role="button"
+                                    data-bs-toggle="dropdown">
+                                    Account
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item"
+                                            href="{% url 'user_profile:dashboard' %}">Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger"
+                                            href="{% url 'singout' %}">Sign
+                                            Out</a></li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light"
+                                    role="button"
+                                    data-bs-toggle="dropdown">
+                                    Account
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item"
+                                            href="{% url 'login' %}">Sing
+                                            In</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item "
+                                            href="{% url 'register' %}">Sign
+                                            Up</a></li>
+                                </ul>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            {% endblock navbar %}
+
+            {% block content %}
+
+            {% endblock content %}
+
+            {% block footer %}
+            <footer class="bg-dark text-light pt-4 mt-5">
+                <div class="container">
+
+                    <!-- Top Divider -->
+                    <hr class="border-light">
+
+                    <div class="row">
+
+                        <!-- Brand / About -->
+                        <div class="col-md-4 mb-4">
+                            <h5 class="fw-bold">InnoCLave IT Solution</h5>
+                            <p class="small">
+                                We provide professional IT solutions including
+                                web
+                                development,
+                                data science services, machine learning
+                                projects,
+                                and digital marketing.
+
+                            </p>
+                        </div>
+
+                        <!-- Quick Links -->
+                        <div class="col-md-4 mb-4">
+                            <h5 class="fw-bold">Quick Links</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="{% url 'home' %}"
+                                        class="text-light text-decoration-none d-block mb-1">Home</a></li>
+                                <li><a href="{% url 'about' %}"
+                                        class="text-light text-decoration-none d-block mb-1">About
+                                        Us</a></li>
+                                {% if user.is_authenticated %}
+                                <li>
+                                    <a href="{% url 'service' %}"
+                                        class="text-light text-decoration-none d-block mb-1">
+                                        Our Services
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li><a href="{% url 'contact' %}"
+                                        class="text-light text-decoration-none d-block mb-1">Contact
+                                        Us</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div class="col-md-4 mb-4">
+                            <h5 class="fw-bold">Follow Us</h5>
+                            <div class="d-flex align-items-center mt-2">
+
+                                <a href="#" class="text-light fs-5 me-3">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="#" class="text-light fs-5 me-3">
+                                    <i class="bi bi-twitter"></i>
+                                </a>
+                                <a href="#" class="text-light fs-5 me-3">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                                <a href="#" class="text-light fs-5">
+                                    <i class="bi bi-linkedin"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bottom Divider -->
+                    <hr class="border-light">
+
+                    <!-- Copyright -->
+                    <div class="text-center pb-3">
+                        <small>&copy; 2025 InnoCLave IT Solution — Designed &
+                            Developed by Limon Rahman. All rights
+                            reserved.</small>
+                    </div>
+
+                </div>
+            </footer>
+
+            {% endblock footer %}
+
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+                crossorigin="anonymous"></script>
+
+            {% block extra_js %}
+
+            {% endblock extra_js %}
+        </body>
+    </html>

@@ -1,0 +1,19 @@
+/* Hero button hover */
+.btn-info {
+    transition: 0.3s ease;
+}
+
+.btn-info:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 65, 65, 0.3);
+}
+
+/* Hero image hover */
+.col-md-5 img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.col-md-5 img:hover {
+    transform: scale(1.01);
+}

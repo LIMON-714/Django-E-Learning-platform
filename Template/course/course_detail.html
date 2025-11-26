@@ -1,0 +1,146 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/course_detail.css' %}">
+{% endblock extra_css %}
+
+{% block title %}
+{{ course.title|title }}
+{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row gy-4 align-items-start">
+
+    <!-- LEFT: Course Thumbnail & Reviews -->
+    <div class="col-lg-5">
+
+      <!-- Course Thumbnail -->
+      <div class="course-image-wrap shadow-lg rounded overflow-hidden mb-4">
+        <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}"
+          class="course-main-img">
+      </div>
+
+      <!-- ⭐ Reviews Section -->
+      <div class="reviews">
+        <h3>Student <span class="text-info">Reviews</span></h3>
+
+        <div class="arrows mb-2">
+          <button class="scroll-btn left" id="scroll-left">&lt;</button>
+          <button class="scroll-btn right" id="scroll-right">&gt;</button>
+        </div>
+
+        {% if course.reviews.all %}
+        <div class="reviews-container">
+          <div class="reviews-wrapper">
+            {% for r in course.reviews.all %}
+            <div class="review-card">
+              <div class="review-head">
+                <span class="review-name text-light">{{ r.name }}</span>
+                <span class="review-rating">★{{ r.rating }}</span>
+              </div>
+              <p class="review-text">{{ r.comment }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
+        <p class="text-secondary">No reviews yet for this course.</p>
+        {% endif %}
+      </div>
+      <!-- ⭐ End Reviews -->
+
+      <!-- ⭐ Write a Review -->
+      <div class="write-review mt-4">
+        <h4 class="text-light">Write a <span
+            class="text-info">Review</span></h4>
+
+        <form method="POST" action="{% url 'submit-review' course.slug %}"
+          class="review-form shadow-sm rounded bg-dark">
+          {% csrf_token %}
+
+          <!-- Rating -->
+          <div class="mb-3">
+            <label class="form-label text-secondary">Rating</label>
+            <input type="number" name="rating" class="form-control"
+              placeholder="Enter rating (e.g., 4.7)" min="1" max="5" step="0.1"
+              required>
+          </div>
+
+          <!-- Comment -->
+          <div class="mb-3">
+            <label class="form-label text-secondary">Your Review</label>
+            <textarea name="comment" rows="3" class="form-control"
+              placeholder="Write your review..." required></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-info fw-semibold w-90 m-1 sub_btn">
+            Submit Review
+          </button>
+        </form>
+      </div>
+      <!-- ⭐ End Write Review -->
+
+    </div>
+
+    <!-- RIGHT: Course Details -->
+    <div class="col-lg-7 text-light">
+
+      <!-- Course Title -->
+      <h1 class="fw-bold text-light">{{ course.title|title }}</h1>
+
+      <!-- Short Description -->
+      <p class="text-secondary lead mb-3" style="line-height:1.7;">
+        {{ course.short_description }}
+      </p>
+
+      <!-- Course Info -->
+      <ul class="course-info text-secondary mb-3">
+        <li><strong>Total Lessons:</strong> {{ course.total_lessons }}</li>
+        <li><strong>Level:</strong> {{ course.level }}</li>
+        <li><strong>Rating:</strong> ⭐ {{ course.rating }}</li>
+        <li><strong>Duration:</strong> {{ course.duration }}</li>
+      </ul>
+
+      <!-- Price & Discount -->
+      <div class="d-flex gap-3 mb-4 align-items-center">
+        {% if course.discount_price %}
+        <span class="text-info fw-bold">${{ course.price }}</span>
+        <span class="text-warning fw-bold"><del>${{course.discount_price}}</del> Off</span>
+        {% else %}
+        <span class="text-info fw-bold">${{ course.price }}</span>
+        {% endif %}
+      </div>
+
+      <!-- Course Features -->
+      <h3 class="text-light mt-4 ">Course <span class="text-info">
+          Features</span></h3>
+      <ul class="text-secondary mb-4">
+        {% for feature in course.get_feature_list %}
+        <li>✔ {{ feature }}</li>
+        {% endfor %}
+      </ul>
+
+      <!-- Long Description -->
+      <div class="course-long-description text-secondary mb-4">
+        {{ course.long_description|linebreaks }}
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="d-flex gap-3 mb-4">
+        <a href="{% url 'course' %}" class="btn btn-outline-info fw-semibold">←
+          Back to Courses</a>
+        <a href="{% url 'payment-process' course.slug %}"
+          class="btn btn-info fw-semibold">Enroll Now</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/course_details.js' %}"></script>
+{% endblock extra_js %}

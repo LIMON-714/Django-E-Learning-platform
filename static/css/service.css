@@ -1,0 +1,85 @@
+/* Service Card Container */
+.service-card {
+    position: relative;
+    background: #111;           /* dark background */
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* button at bottom */
+    height: 100%; /* full column height */
+}
+
+/* Gradient Border */
+.service-card .gradient-border {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding: 2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #0DCAF0, #cb8e15, #67076f);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Card Image */
+.service-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Card Content */
+.service-card .card-content {
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Fixed height for description */
+.service-card p {
+    color: #ccc;
+    font-size: 14px;
+    height: 80px;      /* FIXED height for all descriptions */
+    overflow: hidden;  /* truncate overflow text */
+    margin-bottom: 10px;
+}
+
+/* Title */
+.service-card h5 {
+    color: #0DCAF0;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Button */
+.service-card a.btn {
+    margin-top: auto;  /* pushes button to bottom */
+    transition: 0.3s ease;
+}
+
+.service-card a.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(13, 202, 240, 0.5);
+}
+
+/* Hover effect for card */
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(13, 202, 240, 0.4);
+}
+
+/* Ensure all cards in row have equal height */
+.row.g-4 > .col-md-4 {
+    display: flex;
+}
+.row.g-4 > .col-md-4 > .service-card {
+    flex: 1;
+}

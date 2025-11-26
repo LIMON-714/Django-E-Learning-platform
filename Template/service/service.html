@@ -1,0 +1,57 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/service.css' %}">
+{% endblock extra_css %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+<!-- SERVICES SECTION -->
+<div class="container py-5">
+    <h2 class="text-center fw-bold text-light mb-4">
+        Our <span class="text-info">Services</span>
+    </h2>
+    <hr class="border-secondary mb-4">
+
+    <div class="row g-4">
+
+        {% for service in services %}
+        <div class="col-md-4">
+            <div class="card bg-dark border-0 shadow-lg h-100 service-card">
+
+                <!-- Service Image -->
+                <img src="{{ service.photo.url }}"
+                    class="card-img-top"
+                    alt="{{ service.name }}">
+
+                <div class="card-body text-light">
+                    <!-- Name -->
+                    <h5 class="card-title fw-bold">{{ service.name|title }}</h5>
+
+                    <!-- Description -->
+                    <p class="card-text text-secondary">
+                        {{ service.description|truncatewords:20 }}
+                    </p>
+
+                    <a href="{% url 'service_detail' service.pk %}"
+                        class="btn btn-outline-info fw-semibold w-100 mt-2">
+                        Learn More
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if services|length == 0 %}
+        <p class="text-center text-secondary">No services added yet.</p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock content %}

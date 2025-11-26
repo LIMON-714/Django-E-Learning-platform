@@ -1,0 +1,40 @@
+/* Team Section Card Styling */
+.team-card {
+    background: #0d0d0d !important;
+    border: 1px solid #222;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 100%;
+    transition: all 0.35s ease;
+}
+
+/* Equal Image Size */
+.team-card img {
+    width: 100%;
+    height: 260px;          /* FIXED height for same size */
+    object-fit: cover;      /* Keeps proportion */
+    border-bottom: 1px solid #222;
+}
+
+/* Text Styling */
+.team-card .card-body {
+    padding: 18px;
+}
+
+.team-card .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;  
+}
+
+.team-card .card-text {
+    font-size: 0.95rem;
+    color: #0DCAF0 !important;
+    font-weight: bold;
+}
+
+/* Hover Effect */
+.team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 28px rgba(255, 255, 255, 0.10);
+}

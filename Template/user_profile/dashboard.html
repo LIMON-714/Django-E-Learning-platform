@@ -1,0 +1,106 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard | {{ user.username }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/user_dashboard.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="profile-card">
+                <div class="profile-image">
+                    {% if user_profile.profile_image %}
+                        <img src="{{ user_profile.profile_image.url }}" alt="{{ user.username }}">
+                    {% else %}
+                        <img src="{% static 'images/default_avatar.png' %}" alt="Default Avatar">
+                    {% endif %}
+                </div>
+                <h3>{{ user.get_full_name }}</h3>
+                <p>{{ user.email }}</p>
+            </div>
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="{% url 'user_profile:dashboard' %}" class="active">Dashboard</a></li>
+                    <li><a href="{% url 'user_profile:edit_profile' %}">Edit Profile</a></li>
+                    <li><a href="{% url 'user_profile:user_courses' %}">My Courses</a></li>
+                    <li><a href="{% url 'user_profile:user_blogs' %}">My Blogs</a></li>
+                    <li><a href="{% url 'singout' %}">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h1>Welcome, {{ user.get_full_name }}</h1>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h2>{{ purchased_courses.count }}</h2>
+                    <p>Purchased Courses</p>
+                </div>
+                <div class="stat-card">
+                    <h2>{{ user_blogs.count }}</h2>
+                    <p>Blogs Written</p>
+                </div>
+            </div>
+
+            <section class="courses-section-list">
+                <h3><span class="text-light">My</span> Courses</h3>
+
+                <div class="courses-list">
+                    {% for purchased in purchased_courses %}
+                    <div class="course-row">
+                        <div class="course-img">
+                            <img src="{{ purchased.course.thumbnail.url }}" alt="{{ purchased.course.title }}">
+                        </div>
+
+                        <div class="course-title">{{ purchased.course.title }}</div>
+
+                        <div class="course-level">{{ purchased.course.level }}</div>
+
+                        <div class="course-duration">{{ purchased.course.duration }}</div>
+                    </div>
+
+                    {% empty %}
+                        <p class="empty-message">You have no courses yet.</p>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="blogs-section-list">
+                <h3><span class="text-light">My</span> Blogs</h3>
+
+                <div class="blogs-list">
+                    {% for blog in user_blogs %}
+                    <div class="blogs-row">
+                        <div class="blog-img">
+                            <img src="{{ blog.photo.url }}" alt="{{ blog.title }}">
+                        </div>
+
+                        <div class="blog-title">{{ blog.title }}</div>
+
+                        <div class="blog-author">{{ blog.author.get_full_name }}</div>
+
+                        <div class="blog-date">{{ blog.created_at|date:"M d, Y" }}</div>
+                    </div>
+
+                    {% empty %}
+                        <p class="empty-message">You have not created any blogs yet.</p>
+                    {% endfor %}
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/user_dashboard.js' %}"></script>
+{% endblock extra_js %}

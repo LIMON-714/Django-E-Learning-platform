@@ -1,0 +1,96 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Add New Blog | {{ user.username }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/user_dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/add_blog.css' %}"> 
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="profile-card">
+                <div class="profile-image">
+                    {% if user.profile.profile_image %}
+                        <img src="{{ user.profile.profile_image.url }}" alt="{{ user.username }}">
+                    {% else %}
+                        <img src="{% static 'images/default_avatar.png' %}" alt="Default Avatar">
+                    {% endif %}
+                </div>
+                <h3>{{ user.get_full_name }}</h3>
+                <p>{{ user.email }}</p>
+            </div>
+
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="{% url 'user_profile:dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'user_profile:edit_profile' %}">Edit Profile</a></li>
+                    <li><a href="{% url 'user_profile:user_courses' %}">My Courses</a></li>
+                    <li><a href="{% url 'user_profile:user_blogs' %}" class="active">My Blogs</a></li>
+                    <li><a href="{% url 'singout' %}">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+
+            <h1 style="margin-left: 280px;">
+                <span class="text-light">Add</span> New Blog
+            </h1>
+            <hr>
+
+            <!-- Blog Form -->
+            <form method="POST" enctype="multipart/form-data" class="add-blog-form">
+                {% csrf_token %}
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label>Blog Title</label>
+                    <input type="text" name="title" placeholder="Enter blog title" required>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="">-- Select Category --</option>
+                        {% for cat in categories %}
+                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Photo -->
+                <div class="form-group">
+                    <label>Blog Thumbnail</label>
+                    <input type="file" name="photo" accept="image/*" required>
+                </div>
+
+                <!-- Content -->
+                <div class="form-group">
+                    <label>Blog Content</label>
+                    <textarea name="content" rows="10" placeholder="Write your blog content..." required></textarea>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-btns">
+                    <button type="submit" class="btn btn-outline-info fw-semibold">Publish Blog</button>
+                    <a href="{% url 'user_profile:user_blogs' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+
+            </form>
+
+        </main>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/user_dashboard.js' %}"></script>
+{% endblock extra_js %}

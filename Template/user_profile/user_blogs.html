@@ -1,0 +1,113 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}My Blogs | {{ user.username }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/user_dashboard.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="profile-card">
+                <div class="profile-image">
+                    {% if user.profile.profile_image %}
+                    <img src="{{ user.profile.profile_image.url }}"
+                        alt="{{ user.username }}">
+                    {% else %}
+                    <img src="{% static 'images/default_avatar.png' %}"
+                        alt="Default Avatar">
+                    {% endif %}
+                </div>
+                <h3>{{ user.get_full_name }}</h3>
+                <p>{{ user.email }}</p>
+            </div>
+
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a
+                            href="{% url 'user_profile:dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'user_profile:edit_profile' %}">Edit
+                            Profile</a></li>
+                    <li><a href="{% url 'user_profile:user_courses' %}">My
+                            Courses</a></li>
+                    <li><a href="{% url 'user_profile:user_blogs' %}"
+                            class="active">My Blogs</a></li>
+                    <li><a href="{% url 'singout' %}">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h1 style="margin-left: 290px;"> <span class="text-light">My</span>
+                Blogs</h1>
+            <hr>
+            <!-- Add Blog Button -->
+            <a href="{% url 'user_profile:add_blog' %}"
+                class="add-blog-btn btn btn-outline-info fw-semibold mt-3 px-4">
+                Add New Blog
+            </a>
+
+            <section class="blogs-section-list">
+                <div class="blogs-list">
+                    {% for blog in blogs %}
+                    <div class="blogs-row">
+
+                        <!-- Blog Image -->
+                        <div class="blog-img">
+                            <img src="{{ blog.photo.url }}"
+                                alt="{{ blog.title }}">
+                        </div>
+
+                        <!-- Blog Title -->
+                        <div class="blog-title">
+                            <a href="{% url 'blog_detail' blog.id %}"
+                                class="text-decoration-none text-white">
+                                {{ blog.title }}
+                            </a>
+                        </div>
+
+                        <!-- Author -->
+                        <div class="blog-author">{{ blog.author.get_full_name}}</div>
+
+                        <!-- Created Date -->
+                        <div class="blog-date">{{ blog.created_at|date:"M d, Y"}}</div>
+
+                        <!-- Buttons -->
+                        <div class="blog-actions">
+                            <a href="{% url 'user_profile:edit_blog' blog.id %}"
+                                class="btn btn-info">Edit</a>
+
+                            <form method="POST"
+                                action="{% url 'user_profile:delete_blog' blog.id %}">
+                                {% csrf_token %}
+                                <button type="submit"
+                                    class="btn btn-outline-danger"
+                                    onclick="return confirm('Are you sure you want to delete this blog?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                    {% empty %}
+                    <p class="empty-message">You have not created any blogs
+                        yet.</p>
+                    {% endfor %}
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/user_dashboard.js' %}"></script>
+{% endblock extra_js %}

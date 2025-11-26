@@ -1,0 +1,107 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile | {{ user.username }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="profile-card">
+                <div class="profile-image">
+                    {% if user_profile.profile_image %}
+                    <img src="{{ user_profile.profile_image.url }}"
+                        alt="{{ user.username }}">
+                    {% else %}
+                    <img src="{% static 'images/default_avatar.png' %}"
+                        alt="Default Avatar">
+                    {% endif %}
+                </div>
+                <h3>{{ user.get_full_name }}</h3>
+                 <p>{{ user.email }}</p>
+            </div>
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a
+                            href="{% url 'user_profile:dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'user_profile:edit_profile' %}"
+                            class="active">Edit Profile</a></li>
+                    <li><a href="{% url 'user_profile:user_courses' %}">My
+                            Courses</a></li>
+                    <li><a href="{% url 'user_profile:user_blogs' %}">My
+                            Blogs</a></li>
+                    <li><a href="{% url 'singout' %}">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h1 class="heading">Update <span class="text-info">Your
+                    Profile</span></h1>
+
+            <form method="POST" enctype="multipart/form-data"
+                class="profile-form-simple">
+                {% csrf_token %}
+
+                <div class="form-group-inline">
+                    <label>First Name</label>
+                    <input type="text" name="first_name"
+                        value="{{ form.first_name.value|default:user.first_name }}"
+                        required>
+                </div>
+
+                <div class="form-group-inline">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name"
+                        value="{{ form.last_name.value|default:user.last_name }}"
+                        required>
+                </div>
+
+                <div class="form-group-inline">
+                    <label>Email</label>
+                    <input type="email" name="email"
+                        value="{{ form.email.value|default:user.email }}"
+                        required>
+                </div>
+
+                <div class="form-group-inline">
+                    <label>Phone</label>
+                    <input type="text" name="phone"
+                        value="{{ user_profile.phone }}">
+                </div>
+
+                <div class="form-group-inline">
+                    <label>Bio</label>
+                    <textarea name="bio">{{ user_profile.bio }}</textarea>
+                </div>
+
+                <div class="form-group-inline">
+                    <label>Address</label>
+                    <textarea
+                        name="address">{{ user_profile.address }}</textarea>
+                </div>
+
+                <div class="form-group-inline">
+                    <label>Profile Picture</label>
+                    <input type="file" name="profile_image" id="imageInput">
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit"
+                        class="btn btn-outline-info fw-semibold save_button">Save
+                        Changes</button>
+                    <a href="{% url 'user_profile:dashboard' %}"
+                        class="btn btn-secondary-simple">Cancel</a>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+{% endblock %}

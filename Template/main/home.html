@@ -1,0 +1,58 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock extra_css %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+{% block content %}
+<div class="container py-5">
+    <div class="row align-items-center">
+
+        <!-- LEFT : Heading + Paragraph + Form -->
+        <div class="col-md-7 text-light">
+
+            <h1 class="fw-bold mb-3">
+                Single Platform For All Your <span
+                    class="text-info">Learning</span> Needs.
+            </h1>
+
+            <p class="text-secondary fs-5 mb-4">
+                Whether you want to advance your professional expertise, explore
+                exciting new hobbies, or deepen your academic knowledge, our
+                all in one platform provides a wide range of carefully curated
+                courses and resources. Every course is designed to empower your
+                learning journey, helping you acquire skills, achieve your
+                goals, and unlock your full potential.
+            </p>
+
+            <!-- Search Form -->
+            <form action="/" class="mt-4">
+                <div class="row g-3">
+
+                </div>
+
+                <!-- Button -->
+                <a class="btn btn-outline-info fw-semibold mt-3 px-4"
+                    href="{% url 'register' %}">
+                    Get Start Now
+                </a>
+            </form>
+
+        </div>
+
+        <!-- RIGHT : Image -->
+        <div class="col-md-5 mt-4 mt-md-0">
+            <img src="{% static 'images/home_image/header.jpg' %}"
+                alt="header"
+                class="img-fluid rounded shadow">
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
